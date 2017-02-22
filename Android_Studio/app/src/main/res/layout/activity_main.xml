@@ -13,5 +13,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/guidingText"
+        android:layout_centerHorizontal="true"
+        android:textSize="45dp"
+        android:text="Steps count:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepsCount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textSize="60dp"
+        android:text="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensorType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp" />
 </RelativeLayout>
