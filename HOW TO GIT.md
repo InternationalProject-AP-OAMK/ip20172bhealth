@@ -13,7 +13,7 @@ I use the following location:
 git init
 
 # 4. To connect the right repo to your folder, type in:
-git remote add origin https://github.com/InternationalProject-AP-OAMK/international-project-repo-ip20172b.git
+git remote add origin https://github.com/InternationalProject-AP-OAMK/ip20172bhealth.git
 
 # 5. Check if the origin (fetch and push) are correct:
 git remote -v
