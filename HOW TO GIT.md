@@ -1,12 +1,13 @@
 # 1. Choose folder you want to use for Git
 
-# !! BE SURE NOT TO USE A FOLDER WITH " " SPACES IN THE LINK !!
-# !! ANDROID STUDIO CANNOT WORK WITH THIS !!
+!! BE SURE NOT TO USE A FOLDER WITH " " SPACES IN THE LINK !!
+!! ANDROID STUDIO CANNOT WORK WITH THIS !!
 
 I use the following location:
 "D:\Github\School\Fitrax"
 
-# 2. Right click in folder and choose: "Git Bash Here"
+# 2. Right click in folder and choose: 
+"Git Bash Here"
 
 # 3. To initialise (activate) git in this folder, type in:
 git init

@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mStepDetectorSensor,
 
                 SensorManager.SENSOR_DELAY_FASTEST);
-
     }
 
     protected void onStop() {
