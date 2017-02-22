@@ -1,12 +1,16 @@
 package com.fitrax.fitraxv001;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -16,12 +20,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public TextView textViewSensorType;
 
     public int value;
+    public long time;
 
     private SensorManager mSensorManager;
 
     private Sensor mStepCounterSensor;
 
     private Sensor mStepDetectorSensor;
+
+    public Handler handler = new Handler();
+
+    public PowerManager.WakeLock wakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mStepDetectorSensor = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
+        // saves output (long) in milliseconds
+        Context ctx = getApplicationContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        preferences.getLong("time", time);
+        textViewSensorType.setText("time since reboot: " + time + "");
     }
 
     public void onSensorChanged(SensorEvent event) {
@@ -53,10 +67,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             textViewStepsCount.setText("" + value + "");
+            /*
         } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             // For test only. Only allowed value is 1.0 i.e. for step taken
             textViewSensorType.setText("Sensor type : " + value + "");
+        */
         }
+
     }
 
     @Override
@@ -80,6 +97,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
         mSensorManager.unregisterListener(this, mStepCounterSensor);
         mSensorManager.unregisterListener(this, mStepDetectorSensor);
+    }
+
+    public void checkTimeOfDay(){
+
+        wakeLock.acquire();
+
+
+
+        wakeLock.release();
+    }
+
+    private Runnable runnableTime = new Runnable() {
+        @Override
+        public void run() {
+            checkTimeOfDay();
+            startTimeCheckLoop();
+        }
+    };
+
+    public void startTimeCheckLoop(){
+        handler.postDelayed(runnableTime, 1000 * 60 * 30);
     }
 
 }
