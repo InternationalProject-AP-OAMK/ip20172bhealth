@@ -39,3 +39,8 @@ git pull origin master
 git add .
 git commit -m "<short description>"
 git push origin master
+
+# Troubleshoot:
+git push -f origin master    (to force)
+
+git merge origin/master --allow-unrelated-histories
