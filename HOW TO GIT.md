@@ -15,14 +15,17 @@ git init
 # 4. To connect the right repo to your folder, type in:
 git remote add origin https://github.com/InternationalProject-AP-OAMK/international-project-repo-ip20172b.git
 
-# 5. To sync all data from git with the folder on your PC, type in:
+# 5. Check if the origin (fetch and push) are correct:
+git remote -v
+
+# 6. To sync all data from git with the folder on your PC, type in:
 git pull origin master
 (If this doesn't work):
 git fetch origin master
 
 Now all data is in sync.
 
-# 6. If you have new data in your folder, which isn't on github yet, type in: 
+# 7. If you have new data in your folder, which isn't on github yet, type in: 
 git add .
 git commit -m "<short description>"
 git push origin master
