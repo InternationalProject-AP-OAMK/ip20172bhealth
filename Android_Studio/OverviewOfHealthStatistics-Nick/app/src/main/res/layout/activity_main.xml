@@ -34,6 +34,7 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/stepCounterTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -55,13 +56,13 @@
                 android:textSize="25dp" />
 
             <TextView
+                android:id="@+id/distanceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
                 android:textSize="20dp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="130dp"
             android:layout_gravity="left"
@@ -70,17 +71,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calories"
+                android:text="Calories:"
                 android:textSize="25dp" />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(total):"
-                android:textSize="20dp" />
-            <TextView
+                android:id="@+id/caloriesTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -98,16 +94,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heart Rate"
+                android:text="Speed:"
                 android:textSize="25dp" />
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(now):"
-                android:textSize="20dp" />
-
-            <TextView
+                android:id="@+id/speedTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -131,10 +121,39 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="(now):"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/heartRateNowTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="50"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heart Rate"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="(average):"
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/heartRateAverageTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
