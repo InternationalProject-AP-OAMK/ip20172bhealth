@@ -160,7 +160,12 @@
                 android:text="50"
                 android:textSize="20dp" />
         </LinearLayout>
-
-
     </GridLayout>
+    <com.facebook.share.widget.ShareButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/shareButton"
+        android:text="Share Workout"
+        android:textColor="@color/com_facebook_blue"
+        android:layout_gravity="center"/>
 </LinearLayout>

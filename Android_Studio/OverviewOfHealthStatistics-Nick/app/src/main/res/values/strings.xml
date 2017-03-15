@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OverviewOfHealthStatistics-Nick</string>
+    <string name="title_activity_facebook">FacebookActivity</string>
+    <string name="facebook_app_id">412310965797930</string>
 </resources>
