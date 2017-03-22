@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public ShareButton fbShareBtn;
     public Button newWorkoutBtn;
+    public Button OpenGraphBtn;
 
     public int steps;
     public long time;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
         newWorkoutBtn = (Button) findViewById(R.id.newWorkoutButton);
-
+        OpenGraphBtn = (Button) findViewById(R.id.openGraphButton);
 
         mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
@@ -87,11 +88,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Share
         ShareWorkoutOnFb();
 
-        //open mapsActivity
+        //open MapsActivity
         newWorkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, MapsActivity.class);
+                //i.putExtra("playerPos", position);
+                startActivity(i);
+            }
+        });
+
+        //open HeartRateGraphActivity
+        OpenGraphBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, HeartRateGraphActivity.class);
                 //i.putExtra("playerPos", position);
                 startActivity(i);
             }
