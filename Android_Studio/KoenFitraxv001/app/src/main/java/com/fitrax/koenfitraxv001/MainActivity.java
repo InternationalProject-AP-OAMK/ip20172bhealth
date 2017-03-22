@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         preferences.getLong("time", time);
         textViewSensorType.setText("time since reboot: " + time + "");
+
     }
 
     public void onSensorChanged(SensorEvent event) {
@@ -108,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         wakeLock.release();
     }
 
+    public void startTimeCheckLoop(){
+        handler.postDelayed(runnableTime, 1000 * 60 * 30);
+    }
+
     private Runnable runnableTime = new Runnable() {
         @Override
         public void run() {
@@ -115,9 +120,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             startTimeCheckLoop();
         }
     };
-
-    public void startTimeCheckLoop(){
-        handler.postDelayed(runnableTime, 1000 * 60 * 30);
-    }
-
 }

@@ -168,4 +168,10 @@
         android:text="Share Workout"
         android:textColor="@color/com_facebook_blue"
         android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensorType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 </LinearLayout>
