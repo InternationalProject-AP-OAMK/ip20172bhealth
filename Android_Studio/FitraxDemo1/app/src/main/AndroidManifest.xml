@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nick.overviewofhealthstatistics_nick">
+    package="com.example.nick.fitraxdemo1">
 
     <provider
         android:name="com.facebook.FacebookContentProvider"
