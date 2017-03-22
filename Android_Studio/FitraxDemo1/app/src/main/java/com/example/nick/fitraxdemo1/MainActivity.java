@@ -23,7 +23,6 @@ import com.facebook.share.widget.ShareButton;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    public TextView textViewStepsCount;
     public TextView textViewSensorType;
     public TextView speedTv;
     public TextView stepCounterTv;
@@ -80,10 +79,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preferences.getLong("time", time);
         //textViewSensorType.setText("time since reboot: " + time + "");
 
-        //calculate calories
-        CalculateBurnedCalories();
-
-
 
         //Share
         ShareWorkoutOnFb();
@@ -111,7 +106,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void CalculateBurnedCalories(){
         double caloriesBurned = steps * 0.044;
-        caloriesTv.setText("" + caloriesBurned);
+        String newCaloriesBurned = String.format("%.1f", caloriesBurned);
+        if(!caloriesTv.getText().equals(newCaloriesBurned))
+            caloriesTv.setText(newCaloriesBurned);
     }
 
     public void ShareWorkoutOnFb(){
@@ -152,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             textViewSensorType.setText("Sensor type : " + value + "");
         */
         }
+        //calculate calories
+        CalculateBurnedCalories();
 
     }
 

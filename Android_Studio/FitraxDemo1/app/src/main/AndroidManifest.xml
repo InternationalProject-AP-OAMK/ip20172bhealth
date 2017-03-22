@@ -4,7 +4,7 @@
 
     <provider
         android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider.com.example.nick.overviewofhealthstatistics_nick"
+        android:authorities="com.facebook.app.FacebookContentProvider.com.example.nick.fitraxdemo1"
         android:exported="true" />
 
     <uses-feature android:name="android.hardware.sensor.stepcounter" />
@@ -57,11 +57,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
