@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public ShareButton fbShareBtn;
 
-    public int value;
+    public int steps;
     public long time;
 
     private SensorManager mSensorManager;
@@ -78,18 +78,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Context ctx = getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         preferences.getLong("time", time);
-        textViewSensorType.setText("time since reboot: " + time + "");
+        //textViewSensorType.setText("time since reboot: " + time + "");
 
         //calculate calories
         CalculateBurnedCalories();
 
+
+
         //Share
         ShareWorkoutOnFb();
-
     }
 
     public void CalculateBurnedCalories(){
-
+        double caloriesBurned = steps * 0.044;
+        caloriesTv.setText("" + caloriesBurned);
     }
 
     public void ShareWorkoutOnFb(){
@@ -116,14 +118,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Sensor sensor = event.sensor;
 
         float[] values = event.values;
-        value = -1;
+        steps = -1;
 
         if (values.length > 0) {
-            value = (int) values[0];
+            steps = (int) values[0];
         }
 
         if (sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            stepCounterTv.setText("" + value + "");
+            stepCounterTv.setText("" + steps + "");
             /*
         } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             // For test only. Only allowed value is 1.0 i.e. for step taken
