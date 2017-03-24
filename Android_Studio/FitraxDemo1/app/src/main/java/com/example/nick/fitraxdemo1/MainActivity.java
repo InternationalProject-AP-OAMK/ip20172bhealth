@@ -1,25 +1,33 @@
 package com.example.nick.fitraxdemo1;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -30,7 +38,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public TextView heartRateNowTv;
     public TextView HeartRateAverageTv;
 
-    public ShareButton fbShareBtn;
+    public String teamName;
+    public String userName;
+    public String randomWelcomeMessage;
+
+    //public ShareButton fbShareBtn;
+    private ShareButton shareButton;
+    private Bitmap image;
+    private int counter = 0;
+
+    //public ShareDialog shareDialog;
     public Button newWorkoutBtn;
     public Button OpenGraphBtn;
 
@@ -40,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
 
     private Sensor mStepCounterSensor;
-
     private Sensor mStepDetectorSensor;
 
     public Handler handler = new Handler();
@@ -50,9 +66,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        randomWelcomeMessageFunct();
 
         //initialize facebook sdk
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+        //initialize offline database SharedPreference from LoginActivity
+        Intent mainActivityIntent = getIntent();
+        teamName = mainActivityIntent.getStringExtra("teamName");
+        userName = mainActivityIntent.getStringExtra("userName");
+
+        TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
+        TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
+
+        userNameTextView.setText("Welcome " + userName + "");
+        welcomeMessage.setText("" + randomWelcomeMessage + "");
+        //set text to Team Name of title/actionbar
+        setTitle("Team: " + teamName + "");
 
         textViewSensorType = (TextView) findViewById(R.id.sensorType);
 
@@ -62,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         heartRateNowTv = (TextView) findViewById(R.id.heartRateNowTv);
         HeartRateAverageTv = (TextView) findViewById(R.id.heartRateAverageTv);
 
-        fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
+        //fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
         newWorkoutBtn = (Button) findViewById(R.id.newWorkoutButton);
         OpenGraphBtn = (Button) findViewById(R.id.openGraphButton);
 
@@ -79,9 +111,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preferences.getLong("time", time);
         //textViewSensorType.setText("time since reboot: " + time + "");
 
+        //shareDialog = new ShareDialog(this);
 
         //Share
-        ShareWorkoutOnFb();
+        //ShareWorkoutOnFb();
 
         //open MapsActivity
         newWorkoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +135,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(i);
             }
         });
+
+        //shareButton = (ShareButton) findViewById(R.id.shareButton);
+        //shareButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View view) {
+        //        shareScreenshotOnFacebook();
+        //    }
+        //});
     }
 
     public void CalculateBurnedCalories(){
@@ -112,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void ShareWorkoutOnFb(){
+
         /*Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.logov002black);
         SharePhoto photo = new SharePhoto.Builder()
                 .setBitmap(image)
@@ -125,10 +166,50 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.drawable.markerv001);
         ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentTitle("My workout!")
-                .setContentUrl(Uri.parse("https://google.be"))
+                //Dummy logo link, shared via Dropbox
+                .setContentUrl(Uri.parse("https://www.dropbox.com/s/496dsu4xujzc7q8/logov002squaredblack.png?dl=0"))
+
                 //.setImageUrl(uri)
                 .build();
-        fbShareBtn.setShareContent(content);
+        //fbShareBtn.setShareContent(content);
+    }
+
+    public void shareScreenshotOnFacebook(View view) {
+        //check counter
+        //if(counter == 0) {
+            //save the screenshot
+            View rootView = findViewById(android.R.id.content).getRootView();
+            rootView.setDrawingCacheEnabled(true);
+            // creates immutable clone of image
+            image = Bitmap.createBitmap(rootView.getDrawingCache());
+            // destroy
+            rootView.destroyDrawingCache();
+
+            //share dialog
+            AlertDialog.Builder shareDialog = new AlertDialog.Builder(this);
+            shareDialog.setTitle("Share Screen Shot");
+            shareDialog.setMessage("Share image to Facebook?");
+            shareDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //share the image to Facebook
+                    SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
+                    SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+                    shareButton.setShareContent(content);
+                    counter = 1;
+                    shareButton.performClick();
+                }
+            });
+            shareDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            shareDialog.show();
+        //}
+        //else {
+        //    counter = 0;
+        //    shareButton.setShareContent(null);
+        //}
     }
 
     public void onSensorChanged(SensorEvent event) {
@@ -197,4 +278,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             startTimeCheckLoop();
         }
     };
+
+    public void randomWelcomeMessageFunct(){
+        Random r = new Random();
+        int rInt = r.nextInt(5) + 1;
+        switch (rInt){
+            case 1:
+                randomWelcomeMessage = "Stay fit!";
+                break;
+            case 2:
+                randomWelcomeMessage = "Keep active!";
+                break;
+            case 3:
+                randomWelcomeMessage = "It's your day!";
+                break;
+            case 4:
+                randomWelcomeMessage = "Let's workout!";
+                break;
+            case 5:
+                randomWelcomeMessage = "Let's go!";
+                break;
+        }
+    }
+
+
+    public void getAndShowCurrentHeartRate(){
+        TextView heartRateNow = (TextView) findViewById(R.id.heartRateNowTv);
+
+    }
 }

@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 
-import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
 
     public String teamName;
@@ -49,25 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //Share
 
         //create randomWelcomeMessage
-        Random r = new Random();
-        int rInt = r.nextInt(5) + 1;
-        switch (rInt){
-            case 1:
-                randomWelcomeMessage = "Stay fit!";
-                break;
-            case 2:
-                randomWelcomeMessage = "Keep active!";
-                break;
-            case 3:
-                randomWelcomeMessage = "It's your day!";
-                break;
-            case 4:
-                randomWelcomeMessage = "Let's workout!";
-                break;
-            case 5:
-                randomWelcomeMessage = "Let's go!";
-                break;
-        }
+
 
         //initialize offline database SharedPreference from LoginActivity
         Intent mainActivityIntent = getIntent();

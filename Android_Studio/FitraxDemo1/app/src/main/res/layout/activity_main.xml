@@ -4,15 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nick.overviewofhealthstatistics_nick.MainActivity"
+    android:background="#191919"
+    tools:context="com.example.nick.fitraxdemo1.MainActivity"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Overview"
-        android:textSize="36dp"
-        android:textAlignment="center"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameText"
+            android:text=""
+            android:textColor="#43A5F3"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/randomWelcomeMessageTextView"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -21,17 +40,21 @@
         android:rowCount="3">
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Steps:"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="STEPS"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/stepCounterTv"
@@ -39,21 +62,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
             android:layout_gravity="right"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Distance:"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="DISTANCE"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/distanceTv"
@@ -61,68 +89,96 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calories:"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="CALORIES"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/caloriesTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
             android:layout_gravity="right"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Speed:"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="SPEED"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="(avarage):"
+                android:textColor="#2288E3"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/speedTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heart Rate"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="HEART RATE"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(now):"
-                android:textSize="20dp" />
+                android:layout_gravity="center"
+                android:text="(current):"
+                android:textColor="#2288E3"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/heartRateNowTv"
@@ -130,27 +186,34 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
             android:layout_gravity="right"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical">>
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="#323232"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heart Rate"
-                android:textSize="25dp" />
+                android:layout_gravity="center"
+                android:text="HEART RATE"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="(average):"
-                android:textSize="20dp" />
+                android:textColor="#2288E3"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/heartRateAverageTv"
@@ -158,38 +221,51 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="50"
-                android:textSize="20dp" />
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
         </LinearLayout>
+
     </GridLayout>
+
     <com.facebook.share.widget.ShareButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
         android:id="@+id/shareButton"
         android:text="Share Workout"
-        android:textColor="@color/com_facebook_blue"
+        android:onClick="shareScreenshotOnFacebook"
+        android:textColor="#ffffff"
         android:layout_gravity="center"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sensorType"
+        android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="0dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/newWorkoutButton"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
             android:text="New Workout"
-            android:layout_margin="25dp"/>
+            android:layout_margin="20sp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/openGraphButton"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
             android:text="Open Graph"
-            android:layout_margin="25dp"/>
+            android:layout_margin="20sp"/>
     </LinearLayout>
 </LinearLayout>

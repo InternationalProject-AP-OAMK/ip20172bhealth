@@ -2,6 +2,7 @@ package com.example.nick.fitraxdemo1;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -130,6 +131,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        startActivity(mainActivityIntent);
+
     }
 
     public void requestForSpecificPermission() {
