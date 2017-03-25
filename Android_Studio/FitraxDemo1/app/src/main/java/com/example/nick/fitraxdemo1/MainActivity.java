@@ -1,10 +1,11 @@
 package com.example.nick.fitraxdemo1;
 
+import android.app.NotificationManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,7 +16,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +25,11 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 
 import java.util.Random;
+
+import static com.example.nick.fitraxdemo1.MapsActivity.NOTIFICATION_ID;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public String userName;
     public String randomWelcomeMessage;
 
-    //public ShareButton fbShareBtn;
+    public ShareButton fbShareBtn;
     private ShareButton shareButton;
     private Bitmap image;
     private int counter = 0;
@@ -70,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         randomWelcomeMessageFunct();
 
+        if (!checkIfAlreadyHavePermission()) {
+            requestForSpecificPermission();
+        }
+
         //initialize facebook sdk
         FacebookSdk.sdkInitialize(getApplicationContext());
 
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         heartRateNowTv = (TextView) findViewById(R.id.heartRateNowTv);
         HeartRateAverageTv = (TextView) findViewById(R.id.heartRateAverageTv);
 
-        //fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
+        fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
         newWorkoutBtn = (Button) findViewById(R.id.newWorkoutButton);
         OpenGraphBtn = (Button) findViewById(R.id.openGraphButton);
 
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //shareDialog = new ShareDialog(this);
 
         //Share
-        //ShareWorkoutOnFb();
+        ShareWorkoutOnFb();
 
         //open MapsActivity
         newWorkoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +150,57 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //});
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 123:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // nothing to show here folks!
+                }
+                else {
+                    killApp();
+                }
+
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        123);
+
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public void requestForSpecificPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION},
+                123);
+    }
+
+    private boolean checkIfAlreadyHavePermission() {
+        int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+    public void killApp(){
+        // kill all notifications if there are any
+        NotificationManager notificationMngr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationMngr.cancel(NOTIFICATION_ID);
+
+        finish();
+
+        // kills app
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
     public void CalculateBurnedCalories(){
         double caloriesBurned = steps * 0.044;
         String newCaloriesBurned = String.format("%.1f", caloriesBurned);
@@ -171,12 +228,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 //.setImageUrl(uri)
                 .build();
-        //fbShareBtn.setShareContent(content);
+        fbShareBtn.setShareContent(content);
     }
 
+    /*
     public void shareScreenshotOnFacebook(View view) {
         //check counter
-        //if(counter == 0) {
+        if(counter == 0) {
             //save the screenshot
             View rootView = findViewById(android.R.id.content).getRootView();
             rootView.setDrawingCacheEnabled(true);
@@ -205,12 +263,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
             });
             shareDialog.show();
-        //}
-        //else {
-        //    counter = 0;
-        //    shareButton.setShareContent(null);
-        //}
+        }
+        else {
+            counter = 0;
+            shareButton.setShareContent(null);
+        }
     }
+    */
 
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor = event.sensor;
