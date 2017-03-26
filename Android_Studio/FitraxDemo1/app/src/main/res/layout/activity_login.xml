@@ -40,10 +40,10 @@ tools:context="com.example.nick.fitraxdemo1.LoginActivity">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_teamName"
-                android:inputType="textCapCharacters|textNoSuggestions"
+                android:inputType="textNoSuggestions"
                 android:textColor="#ffffff"
                 android:maxLength="20"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
                 android:maxLines="1" />
 
         </android.support.design.widget.TextInputLayout>

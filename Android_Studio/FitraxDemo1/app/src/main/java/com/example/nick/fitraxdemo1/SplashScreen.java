@@ -11,6 +11,7 @@ import android.view.View;
 public class SplashScreen extends AppCompatActivity {
 
     public int splashScreenTimerInt = 3000;
+    public boolean splashScreenSkipped = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class SplashScreen extends AppCompatActivity {
 
     //when screen touched/pressed, go to Login Activity
     public void skipSplashScreen(View v){
+        splashScreenSkipped = true;
         ConstraintLayout splashScreen = (ConstraintLayout) findViewById(R.id.splashScreenLayout);
         splashScreen.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
@@ -35,7 +37,9 @@ public class SplashScreen extends AppCompatActivity {
         splashScreenTimerHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                goToLoginActivity();
+                if(!splashScreenSkipped) {
+                    goToLoginActivity();
+                }
             }
         }, splashScreenTimerInt);
     }

@@ -20,6 +20,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -70,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         // Set up the login form.
         mTeamNameView = (EditText) findViewById(R.id.teamName);
+        mTeamNameView.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 
         mUserNameView = (EditText) findViewById(R.id.userName);
         mUserNameView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
