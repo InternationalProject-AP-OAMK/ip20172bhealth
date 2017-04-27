@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Random;
 
@@ -61,7 +65,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mStepCounterSensor;
     private Sensor mStepDetectorSensor;
 
+    public FloatingActionButton signOutButton;
+
     public Handler handler = new Handler();
+
+    public SharedPreferences settings;
+    public SharedPreferences.Editor editor;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    public FirebaseUser firebaseUser;
 
     public PowerManager.WakeLock wakeLock;
     @Override
@@ -69,6 +82,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        settings = getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
+        editor = settings.edit();
+
+        //get firebase auth instance
+        mAuth = FirebaseAuth.getInstance();
+
+        //get current user
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (firebaseUser == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
+
+        signOutButton = (FloatingActionButton) findViewById(R.id.signout);
+
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
+        userName = settings.getString("userName", userName);
+        teamName = settings.getString("teamName", teamName);
 
         randomWelcomeMessageFunct();
 
@@ -80,9 +128,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         //initialize offline database SharedPreference from LoginActivity
-        Intent mainActivityIntent = getIntent();
-        teamName = mainActivityIntent.getStringExtra("teamName");
-        userName = mainActivityIntent.getStringExtra("userName");
 
         TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
         TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
@@ -151,6 +196,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+
+        mSensorManager.unregisterListener(this, mStepCounterSensor);
+        mSensorManager.unregisterListener(this, mStepDetectorSensor);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 123:
@@ -186,6 +239,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else {
             return false;
         }
+    }
+
+    public void signOut(){
+        mAuth.signOut();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void killApp(){
@@ -309,12 +369,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mStepDetectorSensor,
 
                 SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    protected void onStop() {
-        super.onStop();
-        mSensorManager.unregisterListener(this, mStepCounterSensor);
-        mSensorManager.unregisterListener(this, mStepDetectorSensor);
     }
 
     public void checkTimeOfDay(){
