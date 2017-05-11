@@ -24,12 +24,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Random;
 
@@ -72,8 +75,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public SharedPreferences settings;
     public SharedPreferences.Editor editor;
 
-    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    public FirebaseAuth firebaseAuth;
+
+    public FirebaseDatabase firebaseDatabase;
+    public DatabaseReference databaseReference;
+
+    //public FirebaseDatabase database;
+    //public DatabaseReference mRootRef;
+    //DatabaseReference mSignUpRef = mRootRef.child("userName");
     public FirebaseUser firebaseUser;
 
     public PowerManager.WakeLock wakeLock;
@@ -87,11 +97,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Context.MODE_PRIVATE);
         editor = settings.edit();
 
+        userName = settings.getString("userName", userName);
+        teamName = settings.getString("teamName", teamName);
+
         //get firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //get current user
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -115,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        userName = settings.getString("userName", userName);
-        teamName = settings.getString("teamName", teamName);
+        //userName = settings.getString("userName", userName);
+        //teamName = settings.getString("teamName", teamName);
 
         randomWelcomeMessageFunct();
 
@@ -132,10 +145,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
         TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
 
-        userNameTextView.setText("Welcome " + userName + "");
+        Toast.makeText(MainActivity.this, "userName: " + userName, Toast.LENGTH_SHORT).show();
         welcomeMessage.setText("" + randomWelcomeMessage + "");
-        //set text to Team Name of title/actionbar
-        setTitle("Team: " + teamName + "");
+        userNameTextView.setText("Welcome " + userName + "");
 
         textViewSensorType = (TextView) findViewById(R.id.sensorType);
 
@@ -187,12 +199,60 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("teamName");
+
+        //myRef.setValue(teamName);
+
         //shareButton = (ShareButton) findViewById(R.id.shareButton);
         //shareButton.setOnClickListener(new View.OnClickListener() {
         //    public void onClick(View view) {
         //        shareScreenshotOnFacebook();
         //    }
         //});
+
+
+
+        /*
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        //databaseReference = firebaseDatabase.getReference("userName");
+        //databaseReference.setValue(userName);
+        databaseReference = firebaseDatabase.getReference();
+        DatabaseReference teamNameDataReference = databaseReference.child("teamName").child("team1").child("name");
+        DatabaseReference userNameDataReference = databaseReference.child("teamName").child("team1").child("userName");
+        //databaseReference.setValue(teamName);
+
+        teamNameDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //String value = dataSnapshot.getValue(String.class);
+                teamName = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        userNameDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //String value = dataSnapshot.getValue(String.class);
+                userName = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        */
+
+
+
     }
 
     @Override
@@ -242,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void signOut(){
-        mAuth.signOut();
+        firebaseAuth.signOut();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();

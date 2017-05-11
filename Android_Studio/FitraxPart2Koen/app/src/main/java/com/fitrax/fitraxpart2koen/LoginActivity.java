@@ -17,15 +17,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
     public String userName, teamName;
 
-    private EditText inputEmail, inputPassword;
-    private FirebaseAuth mAuth;
-    private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset;
+    public EditText inputEmail, inputPassword;
+    public FirebaseAuth firebaseAuth;
+    public FirebaseDatabase firebaseDatabase;
+    public DatabaseReference databaseReference;
+    public ProgressBar progressBar;
+
+    public Button btnSignup, btnLogin, btnReset;
 
     public SharedPreferences settings;
     public SharedPreferences.Editor editor;
@@ -39,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         editor = settings.edit();
 
         //Get Firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -60,7 +68,46 @@ public class LoginActivity extends AppCompatActivity {
         btnReset = (Button) findViewById(R.id.btn_reset_password);
 
         //Get Firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        //databaseReference = firebaseDatabase.getReference("userName");
+        //databaseReference.setValue(userName);
+        databaseReference = firebaseDatabase.getReference();
+        DatabaseReference teamNameDataReference = databaseReference.child("teamName").child("firebaseAuth.uid").child("name");
+        final DatabaseReference userNameDataReference = databaseReference.child("teamName").child("firebaseAuth.uid").child("userName");
+
+        //databaseReference.setValue(teamName);
+
+        teamNameDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                teamName = dataSnapshot.getValue(String.class);
+                Toast.makeText(LoginActivity.this, "teamName: " + teamName, Toast.LENGTH_SHORT).show();
+                editor.putString("teamName", teamName);
+                editor.commit();
+        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        userNameDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userName = dataSnapshot.getValue(String.class);
+                Toast.makeText(LoginActivity.this, "userName: " + userName, Toast.LENGTH_SHORT).show();
+                editor.putString("userName", userName);
+                editor.commit();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        //saveAllDataOffline();
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +142,8 @@ public class LoginActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 //authenticate user
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 // If sign in fails, display a message to the user. If sign in succeeds
@@ -112,13 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
                                 else {
-                                    editor = settings.edit();
-
-
-
-                                    editor.putString("userName", userName);
-                                    editor.putString("teamName", teamName);
-                                    editor.commit();
+                                    //saveAllDataOffline();
 
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
@@ -128,5 +169,13 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    public void saveAllDataOffline(){
+        editor = settings.edit();
+
+        editor.putString("userName", userName);
+        editor.putString("teamName", teamName);
+        editor.commit();
     }
 }
