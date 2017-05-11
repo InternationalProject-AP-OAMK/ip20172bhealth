@@ -1,9 +1,8 @@
-package com.example.nick.bluetooth_part_fitrax;
+package com.fitrax.fitraxpart2nick;
 
 /**
  * Created by Nick on 27/04/2017.
  */
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -30,6 +29,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,8 +39,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Activity for scanning and displaying available Bluetooth LE devices.
@@ -56,7 +56,7 @@ public class DeviceScanActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle(R.string.title_devices);
+//        getActionBar().setTitle(R.string.title_devices);
         mHandler = new Handler();
         // Use this check to determine whether BLE is supported on the device.  Then you can
         // selectively disable BLE-related features.
@@ -141,6 +141,7 @@ public class DeviceScanActivity extends ListActivity {
         if (device == null) return;
         final Intent intent = new Intent(this, DeviceControlActivity.class);
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
+        Log.e("DeviceScan", device.getName());
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
         if (mScanning) {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -218,7 +219,7 @@ public class DeviceScanActivity extends ListActivity {
                 viewHolder.deviceName.setText(deviceName);
             else
                 viewHolder.deviceName.setText(R.string.unknown_device);
-            viewHolder.deviceAddress.setText(device.getAddress());
+//            viewHolder.deviceAddress.setText(device.getAddress());
             return view;
         }
     }

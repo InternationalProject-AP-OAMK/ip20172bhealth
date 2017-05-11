@@ -1,9 +1,8 @@
-package com.example.nick.bluetooth_part_fitrax;
+package com.fitrax.fitraxpart2nick;
 
 /**
  * Created by Nick on 27/04/2017.
  */
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -19,6 +18,7 @@ package com.example.nick.bluetooth_part_fitrax;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -34,8 +34,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
 import java.util.List;
 import java.util.UUID;
+
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
  * given Bluetooth LE device.

@@ -7,6 +7,14 @@
         android:authorities="com.facebook.app.FacebookContentProvider.com.example.nick.fitraxdemo1"
         android:exported="true" />
 
+    <!-- Declare this required feature if you want to make the app available to BLE-capable
+    devices only.  If you want to make your app available to devices that don't support BLE,
+    you should omit this in the manifest.  Instead, determine BLE capability by using
+    PackageManager.hasSystemFeature(FEATURE_BLUETOOTH_LE) -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
     <uses-feature android:name="android.hardware.sensor.stepcounter" />
     <uses-feature android:name="android.hardware.sensor.stepdetector" />
 
@@ -103,6 +111,28 @@
             </intent-filter>
 
         </activity>
+
+        <activity android:name=".DeviceScanActivity"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".DeviceControlActivity"
+            android:theme="@android:style/Theme.Dialog"/>
+        <service android:name=".BluetoothLeService" android:enabled="true"/>
+
+        <receiver android:name=".DownloadHeartRateReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="heartrate">
+                </action>
+            </intent-filter>
+
+        </receiver>
 
     </application>
 

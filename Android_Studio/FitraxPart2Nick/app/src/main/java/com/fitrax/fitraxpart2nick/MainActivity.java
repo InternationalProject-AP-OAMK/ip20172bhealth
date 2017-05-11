@@ -1,6 +1,7 @@
 package com.fitrax.fitraxpart2nick;
 
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //public ShareDialog shareDialog;
     public Button newWorkoutBtn;
     public Button OpenGraphBtn;
+    public Button selectDeviceBtn;
 
     public int steps;
     public long time;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public Handler handler = new Handler();
 
     public PowerManager.WakeLock wakeLock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //set text to Team Name of title/actionbar
         setTitle("Team: " + teamName + "");
 
-        textViewSensorType = (TextView) findViewById(R.id.sensorType);
 
         speedTv = (TextView) findViewById(R.id.speedTv);
         stepCounterTv = (TextView) findViewById(R.id.stepCounterTv);
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         fbShareBtn = (ShareButton) findViewById(R.id.shareButton);
         newWorkoutBtn = (Button) findViewById(R.id.newWorkoutButton);
         OpenGraphBtn = (Button) findViewById(R.id.openGraphButton);
+        selectDeviceBtn =(Button) findViewById(R.id.selectDevice);
 
         mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
@@ -136,6 +139,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, HeartRateGraphActivity.class);
+                //i.putExtra("playerPos", position);
+                startActivity(i);
+            }
+        });
+
+        //open bluetoothActivity
+        selectDeviceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, DeviceScanActivity.class);
                 //i.putExtra("playerPos", position);
                 startActivity(i);
             }
@@ -302,6 +315,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         super.onResume();
 
+        //String data = getIntent().getExtras().getString("heartrate");
+        //heartRateNowTv.setText(data);
+
         mSensorManager.registerListener(this, mStepCounterSensor,
 
                 SensorManager.SENSOR_DELAY_FASTEST);
@@ -357,11 +373,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 randomWelcomeMessage = "Let's go!";
                 break;
         }
-    }
-
-
-    public void getAndShowCurrentHeartRate(){
-        TextView heartRateNow = (TextView) findViewById(R.id.heartRateNowTv);
-
     }
 }
