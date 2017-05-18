@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -37,6 +38,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +66,12 @@ public class DeviceControlActivity extends Activity {
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private final String LIST_NAME = "NAME";
     // Code to manage Service lifecycle.
+
+    public SharedPreferences settings;
+    public SharedPreferences.Editor editor;
+
+    public String MESSAGE_KEY;
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
@@ -86,9 +94,9 @@ public class DeviceControlActivity extends Activity {
     // ACTION_GATT_SERVICES_DISCOVERED: discovered GATT services.
     // ACTION_DATA_AVAILABLE: received data from the device.  This can be a result of read
     //                        or notification operations.
-    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
+    public final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, final Intent intent) {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
@@ -105,8 +113,12 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             }
+
+            Toast.makeText(DeviceControlActivity.this, "YEY", Toast.LENGTH_SHORT).show();
         }
+
     };
+
     // If a given GATT characteristic is selected, check for supported features.  This sample
     // demonstrates 'Read' and 'Notify' features.  See
     // http://d.android.com/reference/android/bluetooth/BluetoothGatt.html for the complete
@@ -145,6 +157,7 @@ public class DeviceControlActivity extends Activity {
         mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
         mDataField.setText(R.string.no_data);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,12 +231,19 @@ public class DeviceControlActivity extends Activity {
             }
         });
     }
-    private void displayData(String data) {
+    private void displayData(final String data) {
         if (data != null) {
             mDataField.setText(data);
-            Intent i = new Intent();
-            i.putExtra("heartrate", data);
-            sendBroadcast(i);
+
+            settings = getSharedPreferences("preferences",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+
+            //Intent i = new Intent();
+            //i.putExtra("heartrate", data);
+            //sendBroadcast(i);
+            editor.putString("data", data);
+            editor.commit();
         }
     }
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.

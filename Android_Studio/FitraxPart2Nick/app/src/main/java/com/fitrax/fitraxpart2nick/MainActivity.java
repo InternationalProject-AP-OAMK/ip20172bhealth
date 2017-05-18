@@ -1,7 +1,6 @@
 package com.fitrax.fitraxpart2nick;
 
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,10 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
+
 import java.util.Random;
 
 import static com.fitrax.fitraxpart2nick.MapsActivity.NOTIFICATION_ID;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public TextView heartRateNowTv;
     public TextView HeartRateAverageTv;
 
-    public String teamName;
+    public String teamName, data;
     public String userName;
     public String randomWelcomeMessage;
 
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mStepCounterSensor;
     private Sensor mStepDetectorSensor;
 
+    public SharedPreferences settings;
+    public SharedPreferences.Editor editor;
+
     public Handler handler = new Handler();
 
     public PowerManager.WakeLock wakeLock;
@@ -80,11 +84,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         //initialize facebook sdk
         FacebookSdk.sdkInitialize(getApplicationContext());
+        settings = getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
 
         //initialize offline database SharedPreference from LoginActivity
         Intent mainActivityIntent = getIntent();
         teamName = mainActivityIntent.getStringExtra("teamName");
         userName = mainActivityIntent.getStringExtra("userName");
+
+        data = "Not connected";
+        data = settings.getString("data", data);
 
         TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
         TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
@@ -154,12 +163,66 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        /*
+        Thread getHeartRateThread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (!isInterrupted()) {
+                                Thread.sleep(1000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                    }
+                                });
+                            }
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                };
+
+                getHeartRateThread.start();
+        */
+
+        heartRateNowTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread getHeartRateThread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (!isInterrupted()) {
+                                Thread.sleep(4000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        data = settings.getString("data", data);
+                                        //heartRateNowTv.setText(data);
+                                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                };
+
+                getHeartRateThread.start();
+            }
+        });
+
         //shareButton = (ShareButton) findViewById(R.id.shareButton);
         //shareButton.setOnClickListener(new View.OnClickListener() {
         //    public void onClick(View view) {
         //        shareScreenshotOnFacebook();
         //    }
         //});
+
+        //initiateWakeCPU();
+
+
+        //startGetCurrentHeartRateThread();
     }
 
     @Override
@@ -198,6 +261,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else {
             return false;
         }
+    }
+
+    public void openAndCloseActivity(){
+        Intent intent = new Intent();
+        data = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
+        sendBroadcast(intent);
+
+
     }
 
     public void killApp(){
@@ -312,11 +383,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     protected void onResume() {
-
         super.onResume();
+        settings = getSharedPreferences("preferences",
+                Context.MODE_PRIVATE);
+
+        data = settings.getString("data", data);
 
         //String data = getIntent().getExtras().getString("heartrate");
-        //heartRateNowTv.setText(data);
+        heartRateNowTv.setText(data);
 
         mSensorManager.registerListener(this, mStepCounterSensor,
 
@@ -333,10 +407,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void checkTimeOfDay(){
-
         wakeLock.acquire();
-
-
 
         wakeLock.release();
     }
