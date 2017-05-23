@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "518757625358",
+    "firebase_url": "https://fitrax-6c700.firebaseio.com",
+    "project_id": "fitrax-6c700",
+    "storage_bucket": "fitrax-6c700.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518757625358:android:d4c2f2f48028fbe0",
+        "android_client_info": {
+          "package_name": "com.fitrax.fitraxpart2koen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518757625358-6jrjhlir4ddq8spkae9mk9b0oct6updd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitrax.fitraxpart2koen",
+            "certificate_hash": "4076fd948ed5ee413c4d62056c76334ee7dca630"
+          }
+        },
+        {
+          "client_id": "518757625358-dmbjgp6jj61202f4qrup0397m0mdhnre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6vOZ1HzzJCBptdnD671cfQc80tYj7ikc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518757625358-dmbjgp6jj61202f4qrup0397m0mdhnre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

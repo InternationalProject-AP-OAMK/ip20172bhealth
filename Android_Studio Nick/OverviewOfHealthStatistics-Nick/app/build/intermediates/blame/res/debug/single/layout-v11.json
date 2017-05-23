@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_action.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "D:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\Nick\\.android\\build-cache\\691e8d4dc2cd8a18330175731798f9d5dd83fe0a\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    }
+]

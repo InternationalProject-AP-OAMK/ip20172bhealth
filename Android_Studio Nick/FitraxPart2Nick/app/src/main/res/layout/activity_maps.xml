@@ -1,0 +1,82 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        tools:context="com.fitrax.fitraxpart2nick.MapsActivity" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="66dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_gravity="bottom"
+        android:background="#00000000"
+        android:clickable="true"
+        android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="66dp"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/clearMapButton"
+            android:padding="5dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:onClick="clearMapButton"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/roundedbuttongreen"
+            android:hapticFeedbackEnabled="true"
+            android:scaleType="fitCenter"
+            android:elevation="4dp"
+            android:src="@drawable/ic_refresh_white_48dp_r" />
+
+        <ImageButton
+            android:id="@+id/startRunningButton"
+            android:padding="5dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:onClick="startRunningButton"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/roundedbuttonblue"
+            android:hapticFeedbackEnabled="true"
+            android:scaleType="fitCenter"
+            android:elevation="4dp"
+            android:src="@drawable/ic_directions_run_white_48dp_v2" />
+
+        <ImageButton
+            android:id="@+id/killAppButton"
+            android:padding="5dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:onClick="killAppButton"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/roundedbuttonred"
+            android:hapticFeedbackEnabled="true"
+            android:scaleType="fitCenter"
+            android:elevation="4dp"
+            android:src="@drawable/ic_close_white_48dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
