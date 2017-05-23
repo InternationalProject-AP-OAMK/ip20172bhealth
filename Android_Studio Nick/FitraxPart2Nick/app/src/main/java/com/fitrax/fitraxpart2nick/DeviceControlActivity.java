@@ -115,8 +115,6 @@ public class DeviceControlActivity extends Activity {
                 startActivity(i);
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
             }
-
-            Toast.makeText(DeviceControlActivity.this, "YEY", Toast.LENGTH_SHORT).show();
         }
 
     };
@@ -236,22 +234,6 @@ public class DeviceControlActivity extends Activity {
     private void displayData(final String data) {
         if (data != null) {
             mDataField.setText(data);
-<<<<<<< Updated upstream
-
-            settings = getSharedPreferences("preferences",
-                    Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings.edit();
-
-            //Intent i = new Intent();
-            //i.putExtra("heartrate", data);
-            //sendBroadcast(i);
-            editor.putString("data", data);
-            editor.commit();
-=======
-            //Intent i = new Intent();
-            //i.putExtra("heartrate", data);
-            //sendBroadcast(i);
->>>>>>> Stashed changes
         }
     }
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.

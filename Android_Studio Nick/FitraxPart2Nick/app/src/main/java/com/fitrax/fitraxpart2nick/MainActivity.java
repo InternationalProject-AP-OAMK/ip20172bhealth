@@ -1,11 +1,8 @@
 package com.fitrax.fitraxpart2nick;
 
 import android.app.NotificationManager;
-<<<<<<< Updated upstream
-=======
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
->>>>>>> Stashed changes
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -106,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         teamName = mainActivityIntent.getStringExtra("teamName");
         userName = mainActivityIntent.getStringExtra("userName");
 
-        data = "Not connected";
-        data = settings.getString("data", data);
 
         TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
         TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
@@ -198,33 +193,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 getHeartRateThread.start();
         */
 
-        heartRateNowTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread getHeartRateThread = new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            while (!isInterrupted()) {
-                                Thread.sleep(4000);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        data = settings.getString("data", data);
-                                        //heartRateNowTv.setText(data);
-                                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        } catch (InterruptedException e) {
-                        }
-                    }
-                };
-
-                getHeartRateThread.start();
-            }
-        });
 
         //shareButton = (ShareButton) findViewById(R.id.shareButton);
         //shareButton.setOnClickListener(new View.OnClickListener() {
@@ -402,23 +370,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
     protected void onResume() {
         super.onResume();
-<<<<<<< Updated upstream
-        settings = getSharedPreferences("preferences",
-                Context.MODE_PRIVATE);
-
-        data = settings.getString("data", data);
-=======
-        final Intent intent = getIntent();
         //mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
->>>>>>> Stashed changes
 
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-        if (mBluetoothLeService != null) {
-            final boolean result = mBluetoothLeService.connect(mDeviceAddress);
-            //Log.d(TAG, "Connect request result=" + result);
-        }
+
         //String data = getIntent().getExtras().getString("heartrate");
-        heartRateNowTv.setText(data);
 
         mSensorManager.registerListener(this, mStepCounterSensor,
 
@@ -436,10 +392,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void checkTimeOfDay(){
         wakeLock.acquire();
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         wakeLock.release();
     }
 
