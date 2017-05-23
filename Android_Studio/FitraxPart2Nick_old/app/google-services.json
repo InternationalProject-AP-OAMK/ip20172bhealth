@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "891810734239",
+    "firebase_url": "https://fitraxdemo.firebaseio.com",
+    "project_id": "fitraxdemo",
+    "storage_bucket": "fitraxdemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891810734239:android:b6ce48fbd8e305c5",
+        "android_client_info": {
+          "package_name": "com.fitrax.fitraxpart2nick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891810734239-ge2co6chch6uk47h7bujgs7aak75h2qn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitrax.fitraxpart2nick",
+            "certificate_hash": "4076fd948ed5ee413c4d62056c76334ee7dca630"
+          }
+        },
+        {
+          "client_id": "891810734239-c15ocbq7h8ru17bffstm3l4ptgr8rb9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEH2H9f5NtC2GcCYXu25AvtO_n-YM2LN8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891810734239-c15ocbq7h8ru17bffstm3l4ptgr8rb9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

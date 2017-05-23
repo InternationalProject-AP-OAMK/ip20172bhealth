@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\Github\School\Fitrax\Android_Studio\FitraxPart2Koen\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9fb9dc210b71e4fede9e860188a94dd9c6b51707">
+        <dex dex="D:\Github\School\Fitrax\Android_Studio\FitraxPart2Koen\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_65043ce8b837a8d0e743159946d3f6cf0d66f8be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Github\School\Fitrax\Android_Studio\FitraxPart2Koen\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="D:\Github\School\Fitrax\Android_Studio\FitraxPart2Koen\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_83c23a54836c56b50caaf2561cfa80f8a2b17d71\classes.dex" />
+    </item>
+
+</items>

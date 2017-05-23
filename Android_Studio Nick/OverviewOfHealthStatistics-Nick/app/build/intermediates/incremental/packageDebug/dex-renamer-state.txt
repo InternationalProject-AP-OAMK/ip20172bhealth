@@ -1,7 +1,0 @@
-#Wed Mar 22 16:11:54 CET 2017
-base.0=D\:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_4f31c3efa4a5de07f8274066ec2d600bc391ef62
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=D\:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_3e5fbee5b836aba8a8aa706e0dbf43029589b3e3\\classes.dex
-base.1=D\:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_3e5fbee5b836aba8a8aa706e0dbf43029589b3e3
-file.0=D\:\\school\\Internationaal project\\Android_Studio\\OverviewOfHealthStatistics-Nick\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_4f31c3efa4a5de07f8274066ec2d600bc391ef62\\classes.dex

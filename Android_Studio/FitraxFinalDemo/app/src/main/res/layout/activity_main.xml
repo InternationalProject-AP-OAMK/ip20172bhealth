@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#191919"
+    tools:context="com.nickenkoen.fitraxfinaldemo.MainActivity"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameText"
+            android:text=""
+            android:textColor="#43A5F3"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/randomWelcomeMessageTextView"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:background="#323232"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="STEPS"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/stepCounterTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="-"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:background="#323232"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="CALORIES"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/caloriesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="-"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:background="#323232"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="HEART RATE"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="(current):"
+                android:textColor="#2288E3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/heartRateNowTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="-"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:background="#323232"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="HEART RATE"
+                android:textColor="#2288E3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="(average):"
+                android:textColor="#2288E3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/heartRateAverageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="-"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="0"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/selectDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/ic_bluetooth_white_48dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:text="Connect"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/openGraphButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/ic_timeline_white_48dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:text="View graph"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/newWorkoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/ic_directions_run_white_48dp_v2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:text="New workout"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
