@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                //i.putExtra("playerPos", position);
                 startActivity(i);
             }
         });
@@ -157,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, HeartRateGraphActivity.class);
-                //i.putExtra("playerPos", position);
                 startActivity(i);
             }
         });
@@ -167,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, DeviceScanActivity.class);
-                //i.putExtra("playerPos", position);
                 startActivity(i);
             }
         });
