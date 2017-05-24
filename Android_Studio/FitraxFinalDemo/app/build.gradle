@@ -31,8 +31,8 @@ dependencies {
     compile 'joda-time:joda-time:2.9.7'
     compile 'com.google.android.gms:play-services-maps:10.2.6'
     compile 'com.jjoe64:graphview:4.2.1'
-    compile 'com.google.firebase:firebase-database:10.2.6'
-    compile 'com.google.firebase:firebase-core:10.2.6'
+    //compile 'com.google.firebase:firebase-database:10.2.6'
+    //compile 'com.google.firebase:firebase-core:10.2.6'
     testCompile 'junit:junit:4.12'
 }
 

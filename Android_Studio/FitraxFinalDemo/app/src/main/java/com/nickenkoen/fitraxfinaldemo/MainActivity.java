@@ -22,14 +22,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+/*
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+*/
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.nickenkoen.fitraxfinaldemo.MapsActivity.NOTIFICATION_ID;
-import static com.nickenkoen.fitraxfinaldemo.R.id.heartRateNowTv;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             heartRateAvg;
 
     public ImageButton newWorkoutBtn, OpenGraphBtn, selectDeviceBtn;
-    public TextView stepCounter, calories, heartRateNow, HeartRateAverage;
+    public TextView stepCounter, calories, heartRateNowTv, heartRateAvgTv;
 
     private SensorManager mSensorManager;
 
@@ -49,11 +50,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public BluetoothLeService mBluetoothLeService;
     public String mDeviceAddress;
 
-    public DatabaseReference databaseReference;
+  /*  public DatabaseReference databaseReference;
     public FirebaseDatabase firebaseDatabase;
-
+*/
     public SharedPreferences settings;
     public SharedPreferences.Editor editor;
+
+    public List<Integer> heartRateList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +80,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         caloriesBurned = null;
         heartRateAvg = null;
 
-        initFireBase();
-        createUser();
+        heartRateList = new ArrayList<>();
 
+   /*     initFireBase();
+        createUser();
+*/
         TextView userNameTextView = (TextView) findViewById(R.id.userNameText);
         TextView welcomeMessage = (TextView) findViewById(R.id.randomWelcomeMessageTextView);
 
@@ -91,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         stepCounter = (TextView) findViewById(R.id.stepCounterTv);
         calories = (TextView) findViewById(R.id.caloriesTv);
-        heartRateNow = (TextView) findViewById(heartRateNowTv);
-        HeartRateAverage = (TextView) findViewById(R.id.heartRateAverageTv);
+        heartRateNowTv = (TextView) findViewById(R.id.heartRateNowTv);
+        heartRateAvgTv = (TextView) findViewById(R.id.heartRateAverageTv);
 
         newWorkoutBtn = (ImageButton) findViewById(R.id.newWorkoutButton);
         OpenGraphBtn = (ImageButton) findViewById(R.id.openGraphButton);
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return false;
         }
     }
-
+/*
     private void initFireBase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Teams");
@@ -180,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         databaseReference.child(teamName).child("caloriesBurned").setValue(caloriesBurned);
         databaseReference.child(teamName).child("heartRateAvg").setValue(heartRateAvg);
     }
-
+*/
     public void killApp(){
         // kill all notifications if there are any
         NotificationManager notificationMngr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -241,9 +246,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
 
-        heartRateNow.setText(heartRate);
+        heartRateNowTv.setText(heartRate);
         if(heartRate == null || heartRate == ""){
-            heartRateNow.setText("-");
+            heartRateNowTv.setText("-");
         }
 
         mSensorManager.registerListener(this, mStepCounterSensor,
@@ -304,26 +309,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 heartRate = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
-                heartRateNow.setText(heartRate);
-
+                heartRateNowTv.setText(heartRate);
+                heartRateList.add(Integer.parseInt(heartRate));
                 if(heartRate == null || heartRate == ""){
-                    heartRateNow.setText("-");
+                    heartRateNowTv.setText("-");
                 }
 
-                currentSteps = Integer.toString(steps);
-                heartRateAvg = Integer.toString(123);
-                // TODO: 23-5-2017 hierboven ^^ integer van heartRateAvg zetten.
+                heartRateAvg = CalculateHeartRateAvg(heartRateList).toString();
+                heartRateAvgTv.setText(heartRateAvg);
 
+                currentSteps = Integer.toString(steps);
+/*
                 databaseReference.child(teamName).child("heartRate").setValue(heartRate);
                 databaseReference.child(teamName).child("currentSteps").setValue(currentSteps);
                 databaseReference.child(teamName).child("caloriesBurned").setValue(caloriesBurned);
                 databaseReference.child(teamName).child("heartRateAvg").setValue(heartRateAvg);
-            }
+*/            }
         }
     };
     private static IntentFilter makeGattUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         return intentFilter;
+    }
+
+    private Integer CalculateHeartRateAvg(List<Integer> HRList){
+        int sum = 0;
+        for (int i=0; i< HRList.size(); i++) {
+            sum += i;
+        }
+        return sum / HRList.size();
     }
 }

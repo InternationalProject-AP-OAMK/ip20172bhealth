@@ -11,22 +11,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.Random;
 
 public class HeartRateGraphActivity extends AppCompatActivity {
 
     private BluetoothLeService mBluetoothLeService;
     private String mDeviceAddress;
     private int heartBeatNR = 0;
+    private int heartBeatNROld = 0;
 
     private final Handler mHandler = new Handler();
     private Runnable mTimer;
     private LineGraphSeries<DataPoint> mSeries;
     private double graphLastXValue = 5d;
+
+    private Button startBtn;
+    private boolean startGraph = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +43,49 @@ public class HeartRateGraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_heart_rate_graph);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        startBtn = (Button) findViewById(R.id.startBtn);
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startGraph = !startGraph;
+                if(startGraph) {
+                    mTimer = new Runnable() {
+                        @Override
+                        public void run() {
+                            graphLastXValue += 1d;
+                            if(heartBeatNR != heartBeatNROld){
+                            //if(getRandom() != mLastRandom){
+                                //mLastRandom = random;
+                                mSeries.appendData(new DataPoint(graphLastXValue, /*random*/ heartBeatNR), true, 200000);
+                            }
+                            mHandler.postDelayed(this, 1200);
+                        }
+                    };
+                    mHandler.postDelayed(mTimer, 1000);
+                }
+                else {
+                    mHandler.removeCallbacks(mTimer);
+                }
+            }
+        });
+
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        mSeries = new LineGraphSeries<DataPoint>();
+        mSeries = new LineGraphSeries<>();
 
         graph.addSeries(mSeries);
         Viewport viewport = graph.getViewport();
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(0);
-        viewport.setMaxX(250);
+        viewport.setMaxX(100);
+        viewport.setScrollable(true);
     }
+    /*
+    double mLastRandom = 5;
+    Random mRand = new Random();
+    int random;
+    private double getRandom() {
+        return random = mRand.nextInt(70-69+1)+69;
+    }*/
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -80,15 +123,6 @@ public class HeartRateGraphActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-        mTimer = new Runnable() {
-            @Override
-            public void run() {
-                graphLastXValue += 1d;
-                mSeries.appendData(new DataPoint(graphLastXValue, heartBeatNR), true, 1000);
-                mHandler.postDelayed(this, 20);
-            }
-        };
-        mHandler.postDelayed(mTimer, 1000);
     }
 
     @Override
