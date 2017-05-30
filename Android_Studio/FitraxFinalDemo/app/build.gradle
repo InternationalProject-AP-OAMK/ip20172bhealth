@@ -9,6 +9,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,8 +32,9 @@ dependencies {
     compile 'joda-time:joda-time:2.9.7'
     compile 'com.google.android.gms:play-services-maps:10.2.6'
     compile 'com.jjoe64:graphview:4.2.1'
-    //compile 'com.google.firebase:firebase-database:10.2.6'
-    //compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-database:10.2.6'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
 }
 
