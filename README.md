@@ -19,4 +19,16 @@ https://play.google.com/store/apps/details?id=com.nickenkoen.fitraxfinalcoachdem
 
 !! Layout can differ between devices !!
 
+## How to install/use:
+1. Download Fitrax Solo on smartphone
+2. Open and login with a new teamname and username
+3. Tap the BlueTooth logo and connect to the fitness tracker
+4. In this dialog tap Heart Rate Service and Heart Rate Measurement
+5. Go back to the Main Activity
+
+6. If the device doensn't connect on the first time, try again.
+
+7. Download Fitrax Team on tablet
+8. Open app and fill in teamname (all CAPS) and connect
+
 
